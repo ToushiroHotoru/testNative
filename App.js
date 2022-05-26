@@ -1,12 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { StyleSheet, View, FlatList, Alert } from "react-native";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodoItem from "./components/AddTodoItem";
@@ -38,16 +31,19 @@ export default function App() {
   };
 
   const addUserHandler = (name) => {
-    setPeople((prevPeople) => {
-      console.log(Math.random().toString);
-      return [
-        {
-          name: name,
-          id: Math.random().toString(),
-        },
-        ...prevPeople,
-      ];
-    });
+    if (name.length > 3) {
+      setPeople((prevPeople) => {
+        return [
+          {
+            name: name,
+            id: Math.random().toString(),
+          },
+          ...prevPeople,
+        ];
+      });
+    } else {
+      Alert.alert("OOPS", "the note must be at least 4 character long");
+    }
   };
 
   return (
